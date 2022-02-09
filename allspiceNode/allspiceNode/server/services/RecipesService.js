@@ -32,7 +32,7 @@ class RecipesService {
   async delete(recipeId, userId) {
     const recipe = await this.getById(recipeId)
     if (recipe.creatorId.toString() !== userId) {
-      throw new Forbidden('Access Denied')
+      throw new Forbidden("Play nice, that's not yours.")
     }
     await dbContext.Recipe.findByIdAndDelete(recipeId)
     await dbContext.Favorite.deleteMany({ recipeId: recipeId, creatorId: userId })
