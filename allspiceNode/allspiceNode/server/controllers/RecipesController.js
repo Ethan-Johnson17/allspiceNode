@@ -1,5 +1,7 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { recipesService } from '../services/RecipesService'
+import { stepsService } from '../services/StepsService'
+import { ingredientsService } from '../services/IngredientsService'
 import BaseController from '../utils/BaseController'
 
 export class RecipesController extends BaseController {
@@ -8,6 +10,8 @@ export class RecipesController extends BaseController {
     this.router
       .get('', this.getAll)
       .get('/:id', this.getById)
+      .get('/:id/steps', this.getRecipeSteps)
+      .get('/:id/ingredients', this.getRecipeIngredients)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .put('/:id', this.edit)
@@ -28,6 +32,26 @@ export class RecipesController extends BaseController {
     try {
       const recipe = await recipesService.getById(req.params.id)
       return res.send(recipe)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getRecipeSteps(req, res, next) {
+    try {
+      // const query = req.query
+      const steps = await stepsService.getStepsByRecipe(req.params.id)
+      return res.send(steps)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getRecipeIngredients(req, res, next) {
+    try {
+      // const query = req.query
+      const ingredients = await ingredientsService.getIngredientsByRecipe(req.params.id)
+      return res.send(ingredients)
     } catch (error) {
       next(error)
     }

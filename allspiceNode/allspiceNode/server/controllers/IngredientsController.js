@@ -6,22 +6,11 @@ export class IngredientsController extends BaseController {
   constructor() {
     super('api/ingredients')
     this.router
-      .get('', this.getAll)
       .get('/:id', this.getById)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.remove)
-  }
-
-  async getAll(req, res, next) {
-    try {
-      const query = req.query
-      const ingredients = await ingredientsService.getAll(query)
-      return res.send(ingredients)
-    } catch (error) {
-      next(error)
-    }
   }
 
   async getById(req, res, next) {

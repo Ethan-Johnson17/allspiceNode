@@ -3,7 +3,7 @@ import { BadRequest, Forbidden } from '../utils/Errors'
 
 class FavoritesService {
   async getFavoritesByAccount(accountId) {
-    const favorites = await dbContext.Favorite.find({ accountId }).populate('account game')
+    const favorites = await dbContext.Favorite.find({ accountId }).populate('account recipe')
     return favorites
   }
 

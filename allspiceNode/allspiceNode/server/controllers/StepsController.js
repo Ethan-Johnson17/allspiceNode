@@ -6,22 +6,11 @@ export class StepsController extends BaseController {
   constructor() {
     super('api/steps')
     this.router
-      .get('', this.getAll)
-      .get('/:id', this.getById)
+      .get('steps/:id', this.getById)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .post('', this.create)
-      .put('/:id', this.edit)
-      .delete('/:id', this.remove)
-  }
-
-  async getAll(req, res, next) {
-    try {
-      const query = req.query
-      const steps = await stepsService.getAll(query)
-      return res.send(steps)
-    } catch (error) {
-      next(error)
-    }
+      .post('steps', this.create)
+      .put('steps/:id', this.edit)
+      .delete('steps/:id', this.remove)
   }
 
   async getById(req, res, next) {

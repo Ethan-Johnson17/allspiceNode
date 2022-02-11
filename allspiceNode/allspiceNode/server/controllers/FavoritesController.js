@@ -24,6 +24,7 @@ export class FavoritesController extends BaseController {
   async create(req, res, next) {
     try {
       req.body.accountId = req.userInfo.id
+      console.log('hello')
       const favorite = await favoritesService.create(req.body)
       res.send(favorite)
     } catch (error) {

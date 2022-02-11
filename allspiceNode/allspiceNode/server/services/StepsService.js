@@ -1,9 +1,8 @@
 import { dbContext } from '../db/DbContext'
 import { BadRequest, Forbidden } from '../utils/Errors'
 class StepsService {
-  async getAll(query) {
-    const steps = await dbContext.Step.find(query)
-    return steps
+  async getStepsByRecipe(id) {
+    return await dbContext.Step.find({ id }).populate('recipe')
   }
 
   async getById(id) {

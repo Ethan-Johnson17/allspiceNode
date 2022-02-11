@@ -67,6 +67,7 @@ import { logger } from '../utils/Logger'
 import { accountService } from '../services/AccountService'
 import { onMounted } from '@vue/runtime-core'
 import Pop from '../utils/Pop'
+import { favoritesService } from '../services/FavoritesService'
 export default {
   props: {
     recipe: { type: Object },
@@ -92,7 +93,7 @@ export default {
 
       async addFavorite(recipeid, accountId) {
         let favorite = { recipeId: recipeid, accountId: accountId }
-        await accountService.createFavorite(accountId, favorite)
+        await favoritesService.createFavorite(accountId, favorite)
       },
       async removeFavorite(isFavorite) {
         await accountService.removeFavorite(isFavorite.favoriteId)

@@ -2,9 +2,8 @@ import { dbContext } from '../db/DbContext'
 import { BadRequest, Forbidden } from '../utils/Errors'
 
 class IngredientsService {
-  async getAll(query) {
-    const ingredients = await dbContext.Ingredient.find(query)
-    return ingredients
+  async getIngredientsByRecipe(id) {
+    return await dbContext.Ingredient.find({ id }).populate('recipe')
   }
 
   async getById(id) {
